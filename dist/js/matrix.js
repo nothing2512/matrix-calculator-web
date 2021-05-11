@@ -70,7 +70,6 @@ class Matrix {
         }
 
         let content = []
-        content.push(divider)
         if (name != null) content.push(p(name.length < 6 ? `Matrix ${name}` : name))
 
         iter(data, (i, row) => {
@@ -85,7 +84,7 @@ class Matrix {
             iter(others, (_, x) => {
                 let xk = x.k || ""
                 if (x.div != null) content.push(x.div)
-                content.push(`<div class="m-1">${x.operator ? " " + x.operator : ""} ${xk}</div>`)
+                else content.push(`<div class="m-1">${x.operator ? " " + x.operator : ""} ${xk}</div>`)
                 iter(x.data[i], (_, o) => {
                     content.push(mcol(o, big))
                 })
@@ -193,14 +192,15 @@ class Matrix {
                 flow.push([])
                 iter(row, (_, col) => {
                     result[i].push(col.mul(other))
-                    flow[i].push(`${this.formatNum(col)} * ${other}`)
+                    flow[i].push(`${this.formatNum(col)} * ${this.formatNum(other)}`)
                 })
             })
             return {
                 flow: [
                     this.toString({
-                        name: `${this.name} * ${other}`,
-                        data: flow
+                        name: `${this.name} * ${this.formatNum(other)}`,
+                        data: flow,
+                        big: true
                     }),
                     this.toString({
                         name: `Result`,

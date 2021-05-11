@@ -2,18 +2,18 @@
 
 const divider = '<div class="divider"></div>'
 const line = {
-    horizontal: `<div class="w-100 border border-primary"></div>`,
-    vertical: `<div class="h-100 border border-primary"></div>`
+    horizontal: `<div class="w-75 border border-white"></div>`,
+    vertical: `<div class="h-100 border border-white"></div>`
 }
 
 function p(text) {
-    return `<p class="text-center">${text}</p>`
+    return `<p class="text-center text-white font-weight-bold">${text}</p>`
 }
 
 function mcol(data, big = false) {
-    let width = big ? 200 : 50
+    let width = big ? 200 : 70
     let col = typeof data == "string" ? data : (data.n % data.d === 0 ? `${data.n / data.d}` : `${data.n}/${data.d}`)
-    return `<input type="text" class="m-1 text-center" disabled value="${col}" style="width: ${width}px"/>`
+    return `<input type="text" class="m-1 text-center form-control" disabled value="${col}" style="width: ${width}px"/>`
 }
 
 function hideFlex(id) {
@@ -43,12 +43,12 @@ function createAddMatrix(parentId, row, col) {
         for (let j = 0; j < col; j++) {
             let id = `#m-data-${i}-${j}`
             ids[i].push(id)
-            content.push(`<input type="text" class="m-1 text-center" id="${id}" style="width: 50px"/>`)
+            content.push(`<input type="text" class="m-1 text-center form-control" id="${id}" style="width: 70px"/>`)
         }
         content.push("</div>")
     }
     content.push('<div class="divider"></div>')
-    content.push('<button class="button btn-primary w-25" id="add-matrix-bt-add">Add</button>')
+    content.push('<button class="btn btn-primary w-25" id="add-matrix-bt-add">Add</button>')
     parent.append(content.join(""))
     showFlex(parentId)
     return ids
@@ -58,7 +58,8 @@ function showResults(data) {
     let content = Array.isArray(data) ? data : [data]
     let parent = $("#results")
     content.push(divider)
-    content.push('<button class="button btn-danger w-25" id="result-bt-clear">Clear</button>')
+    content.push('<button class="btn btn-danger w-25" id="result-bt-clear">Clear</button>')
+    content.push(divider)
     parent.append(content.join(""))
     $("#result-bt-clear").click(function () {
         $("#results").empty()
