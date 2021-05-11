@@ -323,5 +323,6 @@ $("#bt-save-results").click(function () {
 $("#main-menu-bt-clear").click(function () {
     if (confirm("Hapus semua data?")) {
         data = {}
+        init()
     }
 })
