@@ -317,8 +317,8 @@
                     default:
                         v()
                 }
-                if (0 === i) d.s = 1, d.n = 0, d.d = 1
-                else d.s = a < 0 ? -1 : 1, d.n = Math.abs(n), d.d = Math.abs(i)
+                if (0 === i) throw new y;
+                d.s = a < 0 ? -1 : 1, d.n = Math.abs(n), d.d = Math.abs(i)
             };
 
             function s(e, t) {

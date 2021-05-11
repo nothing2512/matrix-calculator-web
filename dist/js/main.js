@@ -159,10 +159,12 @@ $("#main-menu-bt-multiply").click(function() {
 
 // Mul Process
 $("#mul-matrix-bt-process").click(function () {
+    console.log("OK")
     let m1 = $("#mul-matrix-1-select").find(":selected").val()
     let m2 = $("#mul-matrix-2-select").find(":selected").val()
     let i2 = $("#mul-matrix-2-num").val()
-    let mul = data[m1].mul(!isNaN(i2) && i2 === "" ? data[m2] : parseInt(i2)).flow
+    let mul = data[m1].mul(!isNaN(i2) && i2 === "" ? data[m2] : parseInt(i2))
+    console.log(mul)
     temp_matrix = mul.result
     init()
     showResults(mul.flow)
