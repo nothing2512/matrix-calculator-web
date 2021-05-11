@@ -5,8 +5,6 @@ let inputMatrix = []
 let addSubCtx
 let temp_matrix = null
 
-init()
-
 // cancel
 $("#bt-cancel-operation").click(function () {
     init()
