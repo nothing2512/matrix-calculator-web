@@ -11,7 +11,7 @@ function p(text) {
 }
 
 function mcol(data, big = false) {
-    let width = big ? 200 : 75
+    let width = big ? 200 : 50
     let col = typeof data == "string" ? data : (data.n % data.d === 0 ? `${data.n / data.d}` : `${data.n}/${data.d}`)
     return `<input type="text" class="m-1 text-center" disabled value="${col}" style="width: ${width}px"/>`
 }
@@ -98,6 +98,7 @@ function showQuestion() {
 
 function init() {
     $("#results").empty()
+    $("#add-matrix-data").empty()
     $("#add-sub-matrix-1-select").empty()
     $("#add-sub-matrix-2-select").empty()
     $("#mul-matrix-1-select").empty()

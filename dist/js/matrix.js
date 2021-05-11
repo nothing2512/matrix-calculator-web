@@ -263,9 +263,8 @@ class Matrix {
         let result = r1.sub(r2)
 
         let flow_1 = `${this.formatNum(a1)} + ${this.formatNum(a2)} + ${this.formatNum(a3)}`
-        let flow_2 = `(${this.formatNum(b1)} + ${this.formatNum(b2)} + ${this.formatNum(b3)}`
+        let flow_2 = `(${this.formatNum(b1)} + ${this.formatNum(b2)} + ${this.formatNum(b3)})`
 
-        flow.push(p(`|${name}| = ${flow_1} - ${flow_2}`))
         flow.push(p(`|${name}| = ${flow_1} - ${flow_2}`))
         flow.push(p(`|${name}| = ${this.formatNum(r1)} - ${this.formatNum(r2)}`))
         flow.push(p(`|${name}| = ${this.formatNum(result)}`))
@@ -365,7 +364,7 @@ class Matrix {
         return {
             flow: a1.flow.concat(a2.flow).concat(a3.flow).concat([
                 divider,
-                p(`|${name}| = (${formatNum(a1.result)}) (${fAdd(a2.result)}) (${fAdd(a3.result)})`),
+                p(`|${name}| = ${formatNum(a1.result)} ${fAdd(a2.result)} ${fAdd(a3.result)}`),
                 p(`|${name}| = ${formatNum(result)}`)
             ]).join(""),
             result: result
