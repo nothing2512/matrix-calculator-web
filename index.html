@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Matrix Calculator</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="dist/css/bootstrap.css"> 
+		<style>
+			.row {
+				margin-left: unset;
+				margin-right: unset;
+			}
+			.divider {
+				margin-top: 1em
+			}
+			.divider-2 {
+				margin-top: 2em
+			}
+			p {
+				margin-bottom: unset;
+			}
+		</style>
+	</head>
+	<body>
+	
+	<div class="row w-100" style="height: 100vh">
+        <div class="col-4 p-2 col-sm-12 col-md-4 col-lg-4 h-100">
+			<div class="border border-primary overflow-auto h-100 text-center d-flex align-items-center flex-column p-2">
+				<h1>Matrix Calculator</h1>
+				<div class="border border-primary w-100 ml-1 mr-1"></div>
+				<div class="divider-2"></div>
+
+				<!--Main Menu-->
+				<div id="main-menu" class="text-center d-flex align-items-center flex-column w-100">
+					<h3>Main Menu</h3>
+					<button class="button btn-primary w-50" id="main-menu-bt-add-matrix">Add Matrix</button>
+					<div class="divider"></div>
+					<button class="button btn-primary w-50" id="main-menu-bt-generate-matrix">Generate Matrix</button>
+					<div class="divider"></div>
+					<button class="button btn-primary w-50" id="main-menu-bt-addition">Addition</button>
+					<div class="divider"></div>
+					<button class="button btn-primary w-50" id="main-menu-bt-subtraction">Subtraction</button>
+					<div class="divider"></div>
+					<button class="button btn-primary w-50" id="main-menu-bt-multiply">Multiply</button>
+					<div class="divider"></div>
+					<button class="button btn-primary w-50" id="main-menu-bt-determinant">Determinant</button>
+					<div class="divider"></div>
+					<button class="button btn-primary w-50" id="main-menu-bt-inverse">Inverse</button>
+					<div class="divider"></div>
+					<button class="button btn-primary w-50" id="main-menu-bt-transpose">Transpose</button>
+					<div class="divider"></div>
+					<button class="button btn-primary w-50" id="main-menu-bt-show">Show Matrix</button>
+					<div class="divider"></div>
+				</div>
+
+				<!--Add Matrix-->
+				<div id="add-matrix" class="text-center d-flex align-items-center flex-column w-100">
+					<h3>Add New Matrix</h3>
+					<div class="row w-100">
+						<div class="form-group form-inline row col-12">
+							<label for="add-matrix-input-name" class="col-4">Matrix Name</label>
+							<input type="text" id="add-matrix-input-name" class="form-control col-8" placeholder="A"/>
+						</div>
+						<div class="form-group form-inline row col-6">
+							<label for="add-matrix-input-row" class="col-3">Row</label>
+							<input type="number" id="add-matrix-input-row" class="form-control col-9" placeholder="0"/>
+						</div>
+						<div class="form-group form-inline row col-6">
+							<label for="add-matrix-input-col" class="col-3">Col</label>
+							<input type="number" id="add-matrix-input-col" class="form-control col-9" placeholder="0"/>
+						</div>
+					</div>
+					<button class="button btn-primary w-50" id="add-matrix-bt-input">Input Matrix</button>
+					<div id="add-matrix-data" class="d-none align-items-center flex-column w-100">
+
+					</div>
+				</div>
+
+				<!--Generate Matrix-->
+				<div id="generate-matrix" class="text-center d-flex align-items-center flex-column w-100">
+					<h3>Generate Matrix</h3>
+					<div class="row w-100">
+						<div class="form-group form-inline row col-6">
+							<label for="generate-matrix-input-name" class="col-6">Matrix Name</label>
+							<input type="text" id="generate-matrix-input-name" class="form-control col-6" placeholder="A"/>
+						</div>
+						<div class="form-group form-inline row col-6">
+							<label for="generate-matrix-input-min-val" class="col-3">Minimal Value</label>
+							<input type="number" id="generate-matrix-input-min-val" class="form-control col-9" placeholder="0" value="0"/>
+						</div>
+						<div class="form-group form-inline row col-6">
+							<label for="generate-matrix-input-row" class="col-3">Row</label>
+							<input type="number" id="generate-matrix-input-row" class="form-control col-9" placeholder="0"/>
+						</div>
+						<div class="form-group form-inline row col-6">
+							<label for="generate-matrix-input-col" class="col-3">Col</label>
+							<input type="number" id="generate-matrix-input-col" class="form-control col-9" placeholder="0"/>
+						</div>
+					</div>
+					<button class="button btn-primary w-50" id="generate-matrix-bt-input">Generate Matrix</button>
+					<div id="generate-matrix-data" class="d-none align-items-center flex-column w-100">
+
+					</div>
+				</div>
+
+				<!--Add Sub Matrix-->
+				<div id="add-sub-matrix" class="text-center d-flex align-items-center flex-column w-100">
+					<h3>Choose Matrix</h3>
+					<div class="row w-100">
+						<div class="form-group form-inline row col-6">
+							<label for="add-sub-matrix-1-select" class="col-6">Matrix 1</label>
+							<select id="add-sub-matrix-1-select" class="form-control col-6">
+							</select>
+						</div>
+						<div class="form-group form-inline row col-6">
+							<label for="add-sub-matrix-2-select" class="col-6">Matrix 2</label>
+							<select id="add-sub-matrix-2-select" class="form-control col-6">
+							</select>
+						</div>
+					</div>
+					<button class="button btn-primary w-50" id="add-sub-matrix-bt-process">Process</button>
+				</div>
+
+				<!--Multiply Matrix-->
+				<div id="mul-matrix" class="text-center d-flex align-items-center flex-column w-100">
+					<h3>Multiply Matrix</h3>
+					<div class="row w-100">
+						<div class="form-group form-inline row col-4">
+							<label for="mul-matrix-1-select" class="col-6">Matrix 1</label>
+							<select id="mul-matrix-1-select" class="form-control col-6">
+							</select>
+						</div>
+						<div class="form-group form-inline row col-8">
+							<label for="mul-matrix-2-select" class="col-6">Matrix 2 Or Number</label>
+							<select id="mul-matrix-2-select" class="form-control col-3">
+							</select>
+							<input type="number" placeholder="0" id="mul-matrix-2-num" class="form-control col-3">
+						</div>
+					</div>
+					<button class="button btn-primary w-50" id="mul-matrix-bt-process">Process</button>
+				</div>
+
+				<!--Determinant Matrix-->
+				<div id="det-matrix" class="text-center d-flex align-items-center flex-column w-100">
+					<h3>Determinant Matrix</h3>
+					<div class="row w-100">
+						<div class="form-group form-inline row col-12">
+							<label for="det-matrix-select" class="col-6">Matrix</label>
+							<select id="det-matrix-select" class="form-control col-6">
+							</select>
+						</div>
+					</div>
+					<button class="button btn-primary w-50" id="det-bt-sarrus">Sarrus</button>
+					<button class="button btn-primary w-50" id="det-bt-cofactor">Cofactor</button>
+					<button class="button btn-primary w-50" id="det-bt-gauss">Gauss</button>
+				</div>
+
+				<!--Inverse Matrix-->
+				<div id="inv-matrix" class="text-center d-flex align-items-center flex-column w-100">
+					<h3>Inverse Matrix</h3>
+					<div class="row w-100">
+						<div class="form-group form-inline row col-12">
+							<label for="inv-matrix-select" class="col-6">Matrix</label>
+							<select id="inv-matrix-select" class="form-control col-6">
+							</select>
+						</div>
+					</div>
+					<button class="button btn-primary w-50" id="inv-bt-adjoint">Adjoint</button>
+					<button class="button btn-primary w-50" id="inv-bt-gauss">Gauss</button>
+				</div>
+
+				<!--Transpose Matrix-->
+				<div id="transpose-matrix" class="text-center d-flex align-items-center flex-column w-100">
+					<h3>Transpose Matrix</h3>
+					<div class="row w-100">
+						<div class="form-group form-inline row col-12">
+							<label for="transpose-matrix-select" class="col-6">Matrix</label>
+							<select id="transpose-matrix-select" class="form-control col-6">
+							</select>
+						</div>
+					</div>
+					<button class="button btn-primary w-50" id="transpose-bt-process">Transpose</button>
+				</div>
+
+				<div class="divider"></div>
+				<button class="button btn-danger w-25" id="bt-cancel-operation">Cancel</button>
+			</div>
+		</div>
+
+        <div class="col-8 p-2 col-sm-12 col-md-8 col-lg-8 h-100">
+			<div class="border border-primary overflow-auto text-center d-flex align-items-center flex-column w-100 h-100 p-2">
+				<div id="results" class="text-center d-flex align-items-center flex-column w-100">
+
+				</div>
+				<div id="save-results" class="text-center d-flex align-items-center flex-column w-100">
+					<div class="divider"></div>
+					<h3>Want to save results? </h3>
+					<div class="row w-100">
+						<div class="form-group form-inline row col-12">
+							<label for="save-results-name" class="col-4">Matrix Name</label>
+							<input type="text" id="save-results-name" class="form-control col-8" placeholder="A"/>
+						</div>
+					</div>
+					<div class="row w-50">
+						<button class="button btn-success col-5" id="bt-save-results">Save</button>
+						<div class="col-1"></div>
+						<button class="button btn-danger col-5" id="bt-no-save-results">No</button>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+ 
+	<script type="application/javascript" src="dist/js/jquery.js"></script>
+	<script type="application/javascript" src="dist/js/popper.js"></script>
+	<script type="application/javascript" src="dist/js/math.js"></script>
+
+	<script type="application/javascript" src="dist/js/util.min.js"></script>
+	<script type="application/javascript" src="dist/js/matrix.min.js"></script>
+	<script type="application/javascript" src="dist/js/main.min.js"></script>
+	</body>
+</html>
