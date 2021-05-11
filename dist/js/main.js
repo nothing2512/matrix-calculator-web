@@ -7,8 +7,6 @@ let temp_matrix = null
 
 init()
 
-data.A = new Matrix("A", [[3, 1, 4], [5, 2, 0], [6, 7, 8]])
-
 // cancel
 $("#bt-cancel-operation").click(function () {
     init()
@@ -320,5 +318,12 @@ $("#bt-save-results").click(function () {
                 hideFlex("#save-results")
             }
         }
+    }
+})
+
+// Clear Matrix
+$("#main-menu-bt-clear").click(function () {
+    if (confirm("Hapus semua data?")) {
+        data = {}
     }
 })
