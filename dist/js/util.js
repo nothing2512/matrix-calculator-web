@@ -11,7 +11,7 @@ function p(text) {
 }
 
 function mcol(data, big = false) {
-    let width = big ? 200 : 70
+    let width = big ? 170 : 50
     let col = typeof data == "string" ? data : (data.n % data.d === 0 ? `${data.n / data.d}` : `${data.n}/${data.d}`)
     return `<input type="text" class="m-1 text-center form-control" disabled value="${col}" style="width: ${width}px"/>`
 }
@@ -55,6 +55,9 @@ function createAddMatrix(parentId, row, col) {
 }
 
 function showResults(data) {
+	$('html, body').animate({
+        scrollTop: $("#results").offset().top
+    }, 1000);
     let content = Array.isArray(data) ? data : [data]
     let parent = $("#results")
     content.push(divider)

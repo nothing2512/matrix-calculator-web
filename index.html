@@ -19,16 +19,49 @@
 			.bg-primary-dark {
 				background-color: #006fe5;
 			}
+			#warning-message {
+				display: none;
+				height: 100vh;
+				width: 100%
+			}
+			#wrapper {
+				height: 100vh;
+				width: 100%
+			}
+			@media only screen and (orientation:portrait){
+				#wrapper {
+					display:none;
+				}
+				#warning-message {
+					display:block;
+				}
+			}
+			@media only screen and (orientation:landscape){
+				#warning-message {
+					display:none;
+				}
+				#wrapper {
+					display:flex;
+				}
+			}
+			@media only screen and (min-width: 992px) {
+				.wrapper-items {
+					height: 100% !important;
+				}
+				.wrapper-overflow {
+					overflow: auto !important;
+				}
+			}
 		</style>
 	</head>
 	<body>
 	
-	<div class="row w-100" style="height: 100vh">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-4 h-100 p-0">
-			<div class="shadow overflow-auto h-100 text-center d-flex align-items-center flex-column">
+	<div class="row" id="wrapper">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-3 wrapper-items p-0">
+			<div class="shadow wrapper-overflow wrapper-items text-center d-flex align-items-center flex-column">
 				<div class="w-100 bg-light">
 					<div class="divider"></div>
-					<h1 class="font-weight-bold text-primary">Matrix Calculator</h1>
+					<h2 class="font-weight-bold text-primary">Matrix Calculator</h2>
 					<div class="divider"></div>
 				</div>
 				<div class="divider"></div>
@@ -204,8 +237,8 @@
 			</div>
 		</div>
 
-        <div class="col-12 col-sm-12 col-md-12 col-lg-8 h-100 p-0">
-			<div class="bg-primary overflow-auto text-center d-flex align-items-center flex-column w-100 h-100 p-0 pb-1">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-9 wrapper-items p-0">
+			<div class="bg-primary wrapper-overflow wrapper-items text-center d-flex align-items-center flex-column w-100 p-0 pb-1">
 				<div class="text-center d-flex align-items-center flex-column w-100 text-white">
 					<div class="w-100 bg-primary-dark">
 						<div class="divider"></div>
@@ -234,6 +267,19 @@
 			</div>
 		</div>
     </div>
+ 
+	<div id="warning-message">
+		<div class="text-center d-flex align-items-center flex-column w-100 text-white bg-primary h-100">
+			<div class="w-100 bg-danger">
+				<div class="divider"></div>
+				<h1 class="font-weight-bold">Warning !!</h1>
+				<div class="divider"></div>
+			</div>
+			<div class="text-center justify-content-center d-flex flex-column w-100 h-100">
+				<h2 class="font-weight-bold">this website is only viewable in landscape mode</h2>
+			</div>
+		</div>
+	</div>
  
 	<script type="application/javascript" src="dist/js/jquery.js"></script>
 	<script type="application/javascript" src="dist/js/popper.js"></script>
