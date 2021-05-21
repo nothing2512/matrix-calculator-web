@@ -5,6 +5,9 @@ let inputMatrix = []
 let addSubCtx
 let temp_matrix = null
 
+data.a = new Matrix("a", [[1, -1], [2, -1]])
+data.b = new Matrix("b", [[25], [175]])
+
 // cancel
 $("#bt-cancel-operation").click(function () {
     init()

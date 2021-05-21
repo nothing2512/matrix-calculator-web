@@ -18,9 +18,22 @@ class Matrix {
         }
     }
 
+	get_data() {
+		let data = []
+		
+		iter(this.data, (i, row) => {
+			data.push([])
+			iter(row, (_, col) => {
+				data[i].push(col)
+			})
+		})
+		
+		return data;
+	}
+
     formatNum(data) {
         return typeof data == "string" ? data :
-            (data.n % data.d === 0 ? `${data.n / data.d}` : `${data.n}/${data.d}`)
+            (data.n % data.d === 0 ? `${data.n * data.s / data.d}` : `${data.n}/${data.d}`)
     }
 
     // noinspection DuplicatedCode
@@ -30,7 +43,7 @@ class Matrix {
             modifier = "-"
             data = data.mul(-1)
         }
-        data = typeof data == "string" ? data : (data.n % data.d === 0 ? `${data.n / data.d}` : `${data.n}/${data.d}`)
+        data = typeof data == "string" ? data : (data.n % data.d === 0 ? `${data.n * data.s / data.d}` : `${data.n * data.s}/${data.d}`)
         return `${modifier} ${data}`
     }
 
@@ -41,7 +54,7 @@ class Matrix {
             modifier = "+"
             data = data.mul(-1)
         }
-        data = typeof data == "string" ? data : (data.n % data.d === 0 ? `${data.n / data.d}` : `${data.n}/${data.d}`)
+        data = typeof data == "string" ? data : (data.n % data.d === 0 ? `${data.n * data.s / data.d}` : `${data.n * data.s}/${data.d}`)
         return `${modifier} ${data}`
     }
 
@@ -65,7 +78,7 @@ class Matrix {
             }
             big = args.big || false
         } else {
-            data = this.data
+            data = this.get_data()
             name = this.name
         }
 
@@ -78,7 +91,7 @@ class Matrix {
             if (k != null) content.push(`<div class="m-1">${k}</div>`)
 
             iter(row, (j, col) => {
-                content.push(mcol(col, big))
+                content.push(mcol(this.formatNum(col), big))
             })
 
             iter(others, (_, x) => {
@@ -86,7 +99,7 @@ class Matrix {
                 if (x.div != null) content.push(x.div)
                 else content.push(`<div class="m-1">${x.operator ? " " + x.operator : ""} ${xk}</div>`)
                 iter(x.data[i], (_, o) => {
-                    content.push(mcol(o, big))
+                    content.push(mcol(this.formatNum(o), big))
                 })
             })
 
@@ -152,22 +165,25 @@ class Matrix {
         if (isNaN(other)) {
             let y = other.data
 
-            if (x.length !== y[0].length) {
-                alert(`baris matriks ${this.name} != kolom matriks ${other.name}`)
+            if (x[0].length !== y.length) {
+                alert(`baris matriks ${other.name} != kolom matriks ${this.name}`)
             }
 
-            iter(x, (i, row) => {
+            iter(x, (i, _) => {
                 result.push([])
                 flow.push([])
-                iter(row, (k, _) => {
+                iter(y[0], (j, _) => {
                     let temp_result = math.fraction(0);
                     let temp_flow = []
-                    iter(row, (j, _) => {
-                        temp_result = temp_result.add(x[i][j].mul(y[j][k]))
-                        temp_flow.push(`${this.formatNum(x[i][j].mul(y[j][k]))}`)
+					
+                    iter(x, (k, _) => {
+                        temp_result = temp_result.add(x[i][k].mul(y[k][j]))
+                        if (k > 0) temp_flow.push(`${this.fAdd(x[i][k].mul(y[k][j]))}`)
+						else temp_flow.push(`${this.formatNum(x[i][k].mul(y[k][j]))}`)
                     })
+					
                     result[i].push(temp_result)
-                    flow[i].push(temp_flow.join(" + "))
+                    flow[i].push(temp_flow.join(" "))
                 })
             })
 
@@ -213,7 +229,7 @@ class Matrix {
     }
 
     determinant(method=Matrix.SARRUS, data=null) {
-        if (data == null) data = this.data
+        if (data == null) data = this.get_data()
         let data_type = data.length
 
         if (method === Matrix.SARRUS) {
@@ -232,7 +248,7 @@ class Matrix {
     determinant2x2(data=null) {
         let flow = []
         let name = this.name
-        if (data == null) data = this.data
+        if (data == null) data = this.get_data()
 
         let a = data[0][0].mul(data[1][1])
         let b = data[1][0].mul(data[0][1])
@@ -248,7 +264,7 @@ class Matrix {
     }
 
     determinant3x3_sarrus(data=null) {
-        if (data == null) data = this.data
+        if (data == null) data = this.get_data()
         let name = this.name
         let flow = []
 
@@ -276,7 +292,7 @@ class Matrix {
     }
 
     determinant4x4_sarrus(data=null) {
-        if (data == null) data = this.data
+        if (data == null) data = this.get_data()
         let name = this.name
         let formatNum = this.formatNum
         let fAdd = this.fAdd
@@ -372,7 +388,7 @@ class Matrix {
     }
 
     determinant_cofactor() {
-        let data = this.data
+        let data = this.get_data()
         let name = this.name
 
         let flow = [divider, divider, `|${name}| = `]
@@ -436,7 +452,7 @@ class Matrix {
     }
 
     determinant_gauss() {
-        let data = this.data
+        let data = this.get_data()
         let name = this.name
         let multiplier = 1
         let flow = []
@@ -498,7 +514,7 @@ class Matrix {
     }
 
     transpose(data=null) {
-        if (data == null) data = this.data
+        if (data == null) data = this.get_data()
         let result = []
         for (let i = 0; i < data.length; i++) {
             result.push([])
@@ -514,7 +530,7 @@ class Matrix {
 
     minor(i_row, i_col, data=null) {
         let result = []
-        if (data == null) data = this.data
+        if (data == null) data = this.get_data()
         let index = 0
 
         iter(data, (i, row) => {
@@ -531,7 +547,7 @@ class Matrix {
     }
 
     cofactor(i_row, i_col, data=null) {
-        if (data == null) data = this.data
+        if (data == null) data = this.get_data()
         let mnr = this.minor(i_row, i_col, data)
         let det = this.determinant(Matrix.SARRUS, mnr).result
         return {
@@ -630,20 +646,29 @@ class Matrix {
     }
 
     inverse_adjoint() {
-        let det = this.determinant()
-        let adj = this.adjoint()
-        let mul = (new Matrix(`Adjoint(${this.name})`, adj.result))
-            .mul(math.fraction(1).div(det.result))
-        return {
-            flow: [
-                det.flow,
-                divider,
-                adj.flow,
-                divider,
-                mul.flow
-            ].join(""),
-            result: mul.result
-        }
+		let data = this.get_data()
+		if (data.length == 2 && data[0].length == 2) {
+			[data[0][0], data[1][1], data[0][1], data[1][0]] = [data[1][1], data[0][0], data[0][1].mul(-1), data[1][0].mul(-1)]
+			return {
+				flow: this.toString({data: data, name: `Inverse ${this.name}`}),
+				result: data
+			}
+		} else {
+			let det = this.determinant()
+			let adj = this.adjoint()
+			let mul = (new Matrix(`Adjoint(${this.name})`, adj.result))
+				.mul(math.fraction(1).div(det.result))
+			return {
+				flow: [
+					det.flow,
+					divider,
+					adj.flow,
+					divider,
+					mul.flow
+				].join(""),
+				result: mul.result
+			}
+		}
     }
 
     inverse(method=Matrix.ADJOINT) {
